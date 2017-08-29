@@ -31,20 +31,41 @@ class Page extends React.Component {
 class ReactForm extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      submitted: false,
+      bgColor: 'azure'
+    }
+
+    this.submit = this.submit.bind(this);
+  }
+
+  submit () {
+    this.setState((state) => {
+      state.submitted = !state.submitted;
+    });
   }
 
   render() {
-    return (
-      <form>
-        <label htmlFor="name">Name:</label>
-        <input type="text" name="name" />
-        <label htmlFor="name">Age:</label>
-        <input type="text" name="age" />
-        <label htmlFor="email">Email:</label>
-        <input type="text" name="email" />
-        <button type="submit" onClick={this.submit}>Submit</button>
-      </form>
-    );
+    if (this.state.submitted) {
+      return (
+        <form>
+          <h3>Thank you for your submission!</h3>
+        </form>
+      );
+    } else {
+      return (
+        <form className={this.state.bgColor}>
+          <label htmlFor="name">Name:</label>
+          <input type="text" name="name" />
+          <label htmlFor="name">Age:</label>
+          <input type="text" name="age" />
+          <label htmlFor="email">Email:</label>
+          <input type="text" name="email" />
+          <button className="btn btn-primary" type="submit" onClick={this.submit}>Submit</button>
+        </form>
+      );
+    }
   }
 }
 
